@@ -36,3 +36,7 @@ Paste this Domain URL into FocusApp/src/config.ts as your mobile app's backend e
 If you haven't already, set your backend Domain URL and pairing code in src/config.ts. Run on a physical Android device with npx react-native run-android.
 In the app, tap Open settings and enable the FocusApp accessibility service. 
 
+# Notes 
+
+This is a cleaned-up recommit of a previous repository, The-Nothing-Alternative. 
+
