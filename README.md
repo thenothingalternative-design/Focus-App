@@ -7,9 +7,13 @@ Distracting apps are blocked until the session ends. For now, blocking only work
 ## Features
 
 Synchronized focus sessions across multiple devices in real time
+
 Session state persists in PostgreSQL, so devices recover after reconnecting
+
 Android app blocking during active sessions via a native Kotlin AccessibilityService
+
 Server-driven countdown, so all devices agree on when a session ends
+
 
 ## How It Works
 
@@ -51,7 +55,6 @@ npx react-native run-android
 
 In the app, tap Open settings and enable the FocusApp accessibility service. 
 The app should show a screen with a 25:00 minute focus session ready to start. 
-You can change this session length to whatever you'd like. 
 
 # How to Test different functions: 
 
