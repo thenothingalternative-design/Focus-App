@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {AppState, Button, StyleSheet, Text, View} from 'react-native';
+import {AppState, Button, StyleSheet, Text, View, TextInput} from 'react-native';
 import {useSession} from './useSession';
 import {isAccessibilityEnabled, openAccessibilitySettings} from './blocker';
 
@@ -11,24 +11,27 @@ const fmt = (ms: number) => {
 export default function HomeScreen() {
   const {connected, active, remainingMs, start, stop, error} = useSession();
   const [a11y, setA11y] = useState(true);
+  const [minutes, setMinutes] = useState<number>(25);
 
   const check = useCallback(() => {
     isAccessibilityEnabled().then(setA11y);
   }, []);
   useEffect(() => {
     check();
-    const sub = AppState.addEventListener('change', s => s === 'active' && check());
+    const sub = AppState.addEventListener('change', set => set === 'active' && check());
     return () => sub.remove();
   }, [check]);
 
   return (
     <View style={styles.container}>
+      <Text style={styles.status}>Set a Focus Session Length: </Text>
+      <TextInput value={String(minutes)} onChangeText={time => setMinutes(Number(time))} placeholder="Minutes" keyboardType="numeric"/>
       <Text style={styles.status}>{connected ? '● Connected' : '○ Offline'}</Text>
       <Text style={styles.timer}>{active ? fmt(remainingMs) : 'No session'}</Text>
       {active ? (
         <Button title="Stop session" onPress={stop} color="#c0392b" />
       ) : (
-        <Button title="Start 25 min focus" onPress={start} disabled={!connected} />
+        <Button title={"Start " + minutes + " Focus Session" } onPress={()=> start(minutes)} disabled={!connected} />
       )}
       {!a11y && (
         <View style={styles.warn}>
